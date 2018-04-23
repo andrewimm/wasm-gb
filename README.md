@@ -2,6 +2,8 @@
 
 An experimental Game Boy emulator built with WebAssembly and WebGL 2.0
 
+https://andrewimm.github.io/wasm-gb/
+
 ## About
 
 This project is an exploration into the architecture of an non-trivial web
