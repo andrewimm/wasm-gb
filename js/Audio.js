@@ -55,7 +55,7 @@ class NoiseChannel {
 
 class Audio {
   constructor() {
-    this.ctx = new AudioContext();
+    this.ctx = ('AudioContext' in window) ? new AudioContext() : new webkitAudioContext();
     this.ctx.suspend();
 
     this.channels = [

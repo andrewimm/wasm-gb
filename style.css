@@ -10,7 +10,28 @@ body {
   margin: 0 auto;
   padding-top: 40px;
 }
+#no-webgl {
+  display: none;
+  border: 2px solid #fff;
+  background: #000;
+  width: 280px;
+  height: 240px;
+  padding: 10px;
+  border-radius: 10px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-150px, -120px);
+  z-index: 10;
+  font-size: 18px;
+  text-align: center;
+  color: #fff;
+}
+#no-webgl a {
+  color: #9bbc0f;
+}
 #romload {
+  display: none;
   border: 2px solid #fff;
   background: #000;
   width: 280px;

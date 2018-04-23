@@ -8,6 +8,11 @@
 <body>
 <a href="javascript:void(0);" id="vr">VR</a>
 <div class="rows">
+  <div id="no-webgl">
+    <p>Your browser doesn't support WebGL 2.0!</p>
+    <p>This is an experimental project, and not designed for wide support.</p>
+    <p>Track support <a href="https://caniuse.com/#feat=webgl2">here</a></p>
+  </div>
   <div id="romload">
     <p>Load a Gameboy ROM to get started</p>
     <a href="javascript:void(0);" id="upload">
@@ -45,7 +50,16 @@
 <script src="js/VR.js"></script>
 <script>
 const screen = document.getElementById('screen');
-const gl = screen.getContext('webgl2');
+let gl = null;
+try {
+  gl = screen.getContext('webgl2');
+  if (gl) {
+    document.getElementById('romload').style.display = 'block';
+  }
+} catch (e) {}
+if (!gl) {
+  document.getElementById('no-webgl').style.display = 'block';
+}
 const vm = new VM(gl);
 const upload = document.getElementById('rom');
 const modal = document.getElementById('romload');
