@@ -6,11 +6,11 @@ https://andrewimm.github.io/wasm-gb/
 
 ## About
 
-This project is an exploration into the architecture of an non-trivial web
+This project is an exploration into the architecture of a non-trivial web
 application built with Rust and WebAssembly. Nearly all Game Boy functionality
 has been written in Rust, leveraging the ability to compile directly to
 WebAssembly through LLVM. One exception is the graphics unit, which is
-implemented as a series of WebGL 2.0 shaders, leveraging the latest abilities to
+implemented as a series of WebGL 2.0 shaders, using the latest abilities to
 to create data textures from linear byte arrays.
 
 While the emulator is capable of playing many games, it is still very much a
