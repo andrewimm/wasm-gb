@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <title></title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<a href="javascript:void(0);" id="vr">VR</a>
+<div class="rows">
+  <div id="romload">
+    <p>Load a Gameboy ROM to get started</p>
+    <a href="javascript:void(0);" id="upload">
+      <span>Select ROM</span>
+      <input disabled type="file" id="rom" />
+    </a>
+  </div>
+  <div id="graphics">
+    <canvas id="screen" width="320" height="288"></canvas>
+  </div>
+  <div id="controls">
+    <div id="controls_direction">
+      <a href="#" id="control_up"></a>
+      <div id="controls_lr">
+        <a href="javascript:void(0);" id="control_left"></a>
+        <a href="javascript:void(0);" id="control_right"></a>
+      </div>
+      <a href="javascript:void(0);" id="control_down"></a>
+    </div>
+    <div id="controls_ab">
+      <a href="javascript:void(0);" id="control_b">B</a>
+      <a href="javascript:void(0);" id="control_a">A</a>
+    </div>
+  </div>
+  <div id="controls_ss">
+    <a href="javascript:void(0);" id="control_select"></a>
+    <a href="javascript:void(0);" id="control_start"></a>
+  </div>
+</div>
+<script src="js/Audio.js"></script>
+<script src="js/Controls.js"></script>
+<script src="js/Graphics.js"></script>
+<script src="js/SaveState.js"></script>
+<script src="js/VM.js"></script>
+<script src="js/VR.js"></script>
+<script>
+const screen = document.getElementById('screen');
+const gl = screen.getContext('webgl2');
+const vm = new VM(gl);
+const upload = document.getElementById('rom');
+const modal = document.getElementById('romload');
+vm.ready().then(() => {
+  upload.disabled = false;
+});
+upload.addEventListener('change', function(e) {
+  const file = this.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function() {
+      const arrayBuffer = this.result;
+      const slice = new Uint8Array(arrayBuffer);
+      vm.reset(slice);
+      romload.style.display = 'none';
+    };
+    reader.readAsArrayBuffer(file);
+  } else {
+    vm.reset(null);
+  }
+});
+
+window.addEventListener('blur', function(e) {
+  if (vm._playing) {
+    vm.audio.pause();
+  }
+});
+window.addEventListener('focus', function(e) {
+  if (vm._playing) {
+    vm.audio.play();
+  }
+});
+window.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+  e.stopPropagation();
+});
+</script>
+</body>
+</html>
